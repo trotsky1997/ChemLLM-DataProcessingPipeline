@@ -7,12 +7,11 @@ import json
 from markdownify import markdownify
 import mdformat
 
-import re
-
 import random
 from tqdm import tqdm
 from functools import lru_cache
-
+import re
+from pylatexenc.latex2text import LatexNodes2Text
 
 def replace_image_tags_with_alt_text(md_text):
     # 图片标签的正则表达式
@@ -33,10 +32,6 @@ def replace_link_tags_with_alt_text(md_text):
     return new_md_text
 
 
-
-import re
-from pylatexenc.latex2text import LatexNodes2Text
-
 def replace_math_codes_with_text(md_text):
     # 多行数学公式标签的正则表达式
     multiline_math_pattern = r'\$\$(.*?)\$\$'
@@ -55,8 +50,7 @@ def replace_multiline_math_tags_with_text(md_text):
     
     return new_md_text
 
-import re
-from pylatexenc.latex2text import LatexNodes2Text
+
 
 def replace_math_tags_with_text(md_text):
     # 数学公式标签的正则表达式
@@ -66,8 +60,6 @@ def replace_math_tags_with_text(md_text):
     new_md_text = re.sub(math_pattern, lambda m: "$"+LatexNodes2Text(math_mode='text').latex_to_text(m.group(1)) +"$", md_text)
     
     return new_md_text
-
-import re
 
 def remove_http_links(text):
     # HTTP链接的正则表达式
